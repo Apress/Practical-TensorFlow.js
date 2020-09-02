@@ -1,0 +1,144 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="main-centered-container">
+        <h1>Building a Logistic Regression Model from Scratch</h1>
+        <h2>Exploring the basic blocks of TensorFlow.js with unsupervised learning</h2>
+        <h3 class="header-border">Introduction</h3>
+        <p>
+            In this web app, we'll fit a logistic regression model to predict the outcome of a toy dataset.
+        </p>
+        <p>
+            <b class="keywords">Logistic regression</b> is a supervised learning and statistical approach that searches
+            to model an association between a set of independent variables, also known as the predictors, and a discrete
+            dependent variable, known as the target or the class target. In other words, it uses a collection of
+            attributes or "features" as they are most commonly named, to learn to classify them into a category.
+
+        </p>
+        <p>
+            In the case of a binary logistic regression model, such as the one we'll implement here, this target
+            variable has two possible values, e.g., "0" or "1", "spam" or "not spam," or "cat" or "dog." However, and
+            this is the reason why it is called a statistical model, is that instead of directly producing these kinds
+            of responses, the algorithm's output is the probability of the default case. For example, suppose we have a
+            model to predict whether this message is spam or not, and we test the model with an instance of it. Its
+            output is a value between 0 and 1, where 1 means that the model is 100% confident that this message is
+            "spam" and 0 indicates that the message is 0% likely to be spam. Typically, the threshold is drawn at 0.5,
+            meaning that anything above that number is considered the "true" response, e.g., "spam," while any value &#8804;
+            0.5 is the "false" one ("no-spam"). 
+        </p> 
+        <p>
+            This exercise's dataset is a synthetic one I created. It consists of 700 observations of two normally
+            distributed features, and its target variable named "label." The data is perfectly balanced, with 349
+            points belonging to the class "0", and 351 to class "1." To make the dataset is suitable for a
+            classification problem, there's interdependence between the features.
+        </p>
+        <h3 class="header-border">Visualizing the dataset with tfjs-vis</h3>
+        <p>Throughout many of the exercises, we'll use the tfjs-vis extension to visualize the data, aspects of the
+            training phase, and details of the model. On this occasion, we'll plot the dataset in a scatterplot. To do
+            so, click the following button.</p>
+        <div id="visualize"></div>
+
+        <p>
+            On the right part of the screen, you should see a tab or a <b class="keywords">visor</b> as it is known in
+            tfjs-vis, displaying the
+            dataset. At the bottom of the graph, are the observations belonging to the class "0", while the top-center
+            region contains the class "1." Since there's a clear gap between both classes (except for the minimal
+            noise), the model should be able to find the separation quickly.
+        </p>
+        <p>
+            To close or open the visor, press the backtick "<code>`</code>" key.
+        </p>
+        <h3>Training the Model</h3>
+        <p>
+            The model we're about to train is a TensorFlow.js Sequential model of only one layer. The layer's input
+            shape is 2, its number of units is 1, and the activation function is sigmoid. This is how the definition
+            looks like:
+        </p>
+
+        <pre>
+            <code>
+                // Define the model.
+                const model = tf.sequential();
+
+                // Add a Dense layer to the Sequential model
+                model.add(tf.layers.dense({
+                    inputShape: [numOfFeatures],
+                    units: 1,
+                    activation: 'sigmoid',
+                }));
+            </code>
+        </pre>
+        <p>
+            Once defined, the following step is to compile it, which means preparing all the layers and the model
+            configuration for training. At this step, we need to specify the training optimizer, loss function, and
+            evaluation metric. Ours are Adam, binary cross-entropy, and accuracy, respectively. This is the code.
+        </p>
+        <pre>
+            <code>
+                model.compile({
+                    optimizer: tf.train.adam(0.1),
+                    loss: 'binaryCrossentropy',
+                    metrics: ['accuracy']
+                });
+            </code>
+        </pre>
+
+        <p>
+            Lastly, we call the <code>fitDataset</code> function to fit the model. In this one, we'll specify the number
+            of epochs
+            &mdash;
+            the number of times the complete training dataset traverses the model &mdash; two callback functions that
+            execute at the end of each epoch, and another one that prints a message when the training is over. The first
+            of these functions display the training loss and accuracy
+            evolution in the tfjs-vis visor, and the second print the log to the console. This is how the function looks
+            like.
+        </p>
+        <pre>
+            <code>
+                await model.fitDataset(flattenedDataset, {
+                    epochs: numberEpochs,
+                    callbacks: [
+                      tfvis.show.fitCallbacks(
+                        trainingSurface,
+                        ['loss', 'acc'],
+                        { callbacks: ['onEpochEnd'] }
+                      ),
+                      {
+                        onEpochEnd: async (epoch, logs) => {
+                          console.log(epoch + ':' + logs.loss);
+                        }
+                      },
+                      {
+                        onTrainEnd: async (logs) => {
+                          console.log('Training has ended.')
+                        }
+                      }],
+                  });
+            </code>
+        </pre>
+        <p>
+            We'll manually set the number of epochs in the field below.
+        </p>
+
+        <h3 class="header-border">Enter number of epochs</h3>
+        <label for="number-epochs">Number of epochs (between 1 and 20):</label>
+        <input type="number" id="number-epochs" name="number-epochs" min="1" max="20" value="5" style="width: 5em">
+        <h3 class="header-border">Click to fit the model</h3>
+        <div id="train"></div>
+        <p>
+            After starting the training, you'll see on the visor two dynamic lines that change over time. These values
+            represent the training's loss and accuracy value at the end of each epoch.
+        </p>
+        <p>With that, we end our first exercise :)</p>
+        <script src="./index.js"></script>
+    </div>
+</body>
+
+</html>

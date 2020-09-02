@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <!-- Import TensorFlow.js from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- Import tfjs-vis from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="main-centered-container">
+        <h1>Building a Linear Regression Model from Scratch</h1>
+        <h2>Exploring the basic blocks of TensorFlow.js</h2>
+        <h3 class="header-border">Introduction</h3>
+        <p>In this web app, we'll fit a linear regression model to predict distance traversed based on the number of
+            steps taken.</p>
+        <p>Linear regression is a supervised learning approach that searches to model or build an association between a
+            set of independent variables (also known as explanatory variables) and one target, and continuous variable,
+            that's it a variable whose value can be any number between a minimum and a maximum value.</p>
+        <p>This exercise's dataset consists of 198 observations of my Fitbit's steps and distance data. The first
+            feature, the steps, takes the role of the independent or explanatory variable, while the distance column is
+            the target we want to predict.</p>
+        <h3 class="header-border">Load and Visualize the Data with tfjs-vis</h3>
+        <p>Our first step is loading the data. After pressing the button below, we'll load the dataset from a local
+            file, and plot it using a tfjs-vis <a href="https://js.tensorflow.org/api_vis/latest/#render.scatterplot"
+                target="_blank">scatterplot</a>.
+        </p>
+        <div id="load-plot"></div>
+        <p>
+            On the right side, you'll see a tfjs-vis visor displaying the data, and you'll realize how straightforward
+            and linear it is since the stride of my steps barely varies. To close (or
+            open) the visor, press the backtick "`" button.
+        </p>
+        <p>
+            With the data loaded, let's process to train the model.
+        </p>
+        <h3 class="header-border">Model Training</h3>
+        <p>
+            To make the training a bit dynamic, we'll manually set the number of epochs, that's it, the number of times
+            the complete training dataset traverses the model.
+        </p>
+
+        <p>
+            In my experience, around 20 epochs should do the job. However, feel free to play around with the value to
+            experience the different behaviors.
+        </p>
+        <label for="number-epochs">Enter number of epochs (no restriction, have fun :P)</label>
+        <input type="number" id="number-epochs" name="number-epochs" min="1" value="5" style="width: 5em">
+        <h4>Click to fit the model</h4>
+        <div id="train-div"></div>
+        <h3 class="header-border">Visualize the Model's Performance</h3>
+        <p>
+            After starting the training, you'll see on the visor two dynamic lines that evolve over time. These values
+            represent the training's loss value and mean squared error at the end of each epoch. At epoch zero,
+            both scores display a very high value, but then after the first training epoch, it drastically drops due to
+            the simplicity of the dataset.
+        </p>
+        <h3 class="header-border">Prediction</h3>
+        <p>
+            Once the training ends, it's time to try the model. To test it, we're going to input a number in the space
+            below and execute the prediction by pressing "Predict!." After pressing the button, the app converts the
+            given value to a tensor of rank 1 and calls the function <code>predict()</code> to infer an outcome. This
+            function
+            returns a tensor, and to print it, we'll use <code>dataSync()</code> to retrieve the prediction result
+            synchronously and
+            display it in the line below.
+        </p>
+        <p>
+            Besides just predicting, we'll also be adding the input value and the response to the scatterplot. That way,
+            we'll quickly get an idea of how accurate (or inaccurate) the model is.
+        </p>
+        <div id="predict"></div>
+        <script src="./index.js"></script>
+    </div>
+
+</body>
+
+</html>

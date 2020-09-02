@@ -1,0 +1,11 @@
+{
+  "name": "tfjs-node-mnist-gan",
+  "version": "0.0.1",
+  "description": "Train a GAN for generating handwritten digits",
+  "scripts": {
+    "train": "node trainer.js"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^1.5.2"
+  }
+}

@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <!-- Import TensorFlow.js from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- Import tfjs-vis from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main-centered-container">
+        <h1>Handwritten Digits Detection App</h1>
+        <h2>Using Convolutional Neural Networks</h2>
+        <h3 class="header-border">Description</h3>
+        <p>For this chapter's exercise, you will build an app that fits a convolutional neural network using the MNIST
+            dataset to
+            identify in real-time handwritten digits. At first, as we did with the others, we will load the dataset,
+            design
+            the
+            model, and train it. Then, we will develop the drawing functionality. This feature involves setting up a
+            canvas
+            where
+            the user will draw a digit using its mouse. After drawing the digit, the app converts the image to a tensor
+            and
+            feeds it
+            to the model to recognize the input value.</p>
+        <h3 class="header-border">The app</h3>
+        <div id="pipeline" class="center"></div>
+        <canvas id="draw-canvas" class="digits-canvas"></canvas>
+        <p id="predict-output"></p>
+
+        <h3 class="header-border">About convolutional neural networks</h3>
+        <p>A convolutional neural network (Y. LeCun et al., 1989) is a type of neural network that simulates the brain's
+            visual
+            cortex functions to extract and recognize the features of an image. Once extracted, the network learns that
+            these
+            features form the object; e.g., a cat is a cat because of these features.
+
+            At its core, a CNN involves two different kinds of layers: convolutional layer (hence the name), and pooling
+            layer. A convolutional layer computes a
+            convolution
+            operation to extract the image's main features. The pooling layer reduce (i.e., sub-sample) the spatial size
+            of the input image to reduce the number of parameters of the network,
+            lessening the risk of overfitting the model.</p>
+        <h3 class="header-border">About the MNIST dataset</h3>
+        <p>The dataset we will use to train the convnet is the Modified National Institute of Standards and Technology
+            or MNIST
+            (Yann LeCun et al., 2010) dataset of handwritten digits. This well-known dataset, often used for
+            benchmarking machine
+            learning models and architectures, has over 60,000 28x28 grayscale images of handwritten digits between 0
+            and 9. Figure
+            4-6 shows a sample.</p>
+
+        <!-- Import the main script file -->
+        <script src="data.js" type="module"></script>
+        <script src="index.js" type="module"></script>
+    </div>
+</body>
+
+</html>

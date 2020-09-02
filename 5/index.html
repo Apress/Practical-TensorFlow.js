@@ -1,0 +1,47 @@
+<html>
+
+<head>
+  <!-- Load TensorFlow.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <!-- Load Posenet -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+  <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+  <h2 class="center">Pose for the Net!</h2>
+  <div class="game-container">
+    <div id="buttons-menu" class="center" style="margin-top: 25px;"></div>
+    <div id="menu" class="game-ui">
+      <div class="center">
+        <p>Score:</p>
+        <p id="score">0</p>
+      </div>
+      <div class="center">
+        <p>Strikes:</p>
+        <p id="strikes">0</p>
+      </div>
+    </div>
+
+    <div class="game-ui">
+      <div class="center">
+        <p id='pose-to-match' style="font-size:80px;">-</p>
+      </div>
+      <div>
+        <video id="video" playsinline style="display: none;">
+        </video>
+        <canvas id="output"></canvas>
+      </div>
+      <div class="center">
+        <p id="countdown" style="font-size:80px;">-</p>
+      </div>
+    </div>
+    <div id="result" class="center">
+      <p id="result-text" style="font-size: 60px;"></p>
+    </div>
+  </div>
+  <script src="draw.js" type="module"></script>
+  <script src="index.js" type="module"></script>
+</body>
+
+</html>

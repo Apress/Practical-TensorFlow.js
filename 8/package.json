@@ -1,0 +1,15 @@
+{
+  "name": "tfjs-node-trainer-server",
+  "version": "0.0.1",
+  "description": "Train a image classifier using transfer learning and deploy it",
+  "scripts": {
+    "train": "node trainer.js",
+    "serve": "node server.js",
+    "tensorboard": "tensorboard --logdir /tmp/fit_logs"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^1.5.2",
+    "express": "^4.17.1",
+    "multer": "^1.4.2"
+  }
+}

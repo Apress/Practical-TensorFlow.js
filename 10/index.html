@@ -1,0 +1,33 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+</head>
+
+<body>
+  <canvas id="gen-img-canvas" width="28" height="28"></canvas>
+  <button onclick="generate()">Generate!</button>
+  <script>
+    let generator;
+    const realCanvas = document.getElementById('gen-img-canvas');
+
+    async function generate() {
+      const noise = tf.randomNormal([1, 100]);
+      let generatedImage = generator.predict(noise).add(1).div(2);
+      console.log(generatedImage.shape)
+      generatedImage = generatedImage.squeeze(0).squeeze(2);
+      console.log(generatedImage.shape)
+      // If dtype is float32, it assumes the values are in
+      // [0-1]. If tensor is of rank 2, it draws grayscale.
+      await tf.browser.toPixels(generatedImage, realCanvas);
+    }
+
+    async function init() {
+      generator = await tf.loadLayersModel('http://127.0.0.1:8080/model/model.json');
+    }
+    init()
+
+  </script>
+</body>
+
+</html>

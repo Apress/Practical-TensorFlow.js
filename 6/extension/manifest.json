@@ -1,0 +1,13 @@
+{
+  "name": "Toxicity Detection with TensorFlow.js",
+  "version": "1.0",
+  "description": "Identify Toxic Content",
+  "permissions": [
+    "activeTab"
+  ],
+  "browser_action": {
+    "default_popup": "src/popup.html"
+  },
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self'"
+}
