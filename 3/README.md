@@ -1,10 +1,10 @@
-# Doing k-means with ml5.js and d3.js
+# Doing k-means with ml5.js and Plotly
 
 ## Introduction
 For our next exercise, we will leave behind the topic of supervised learning, and consider its counterpart, unsupervised learning, 
 and its quintessential algorithm, k-means.
 
-In this section, you will write a web app that fits a k-means model using a synthetic dataset while visualizing its different outcomes using the visualization library d3.js. Contrary to the previous two problems where
+In this section, you will write a web app that fits a k-means model using a synthetic dataset while visualizing its different outcomes using the visualization library Plotly. Contrary to the previous two problems where
 you implemented the algorithms from scratch, in this one, you will use an external library named ml5.js, a higher-level abstraction of TensorFlow.js that provides a simple API with several prebuilt and ready-to-use models.
 
 ## Running the app
