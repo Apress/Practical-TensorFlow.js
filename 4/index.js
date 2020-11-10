@@ -73,6 +73,7 @@ function defineModel() {
 }
 
 async function train() {
+  // Make sure the tfjs-vis visor is open before starting the training.
   tfvis.visor().open();
   const BATCH_SIZE = 512;
   const TRAIN_DATA_SIZE = 5500;
@@ -101,7 +102,10 @@ async function train() {
     epochs: 30,
     validationData: [xTest, yTest],
     shuffle: true,
-    callbacks: tfvis.show.fitCallbacks({ name: 'Loss and Accuracy', tab: 'Training' }, ['loss', 'val_loss', 'acc', 'val_acc'], ),
+    callbacks: tfvis.show.fitCallbacks(
+      { name: 'Loss and Accuracy', tab: 'Training' },
+      ['loss', 'val_loss', 'acc', 'val_acc'],
+    ),
   });
 
   isModelTrained = true;
@@ -220,7 +224,7 @@ function enableButton(selector) {
 function init() {
   prepareCanvas();
   createButton('Load data', '#pipeline', 'load-btn',
-    async() => {
+    async () => {
       data = new MnistData();
       await data.load();
       drawData();
@@ -228,7 +232,7 @@ function init() {
     });
 
   createButton('Train', '#pipeline', 'train-btn',
-    async() => {
+    async () => {
       defineModel();
       train();
     }, true);
