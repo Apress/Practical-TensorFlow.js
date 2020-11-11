@@ -73,6 +73,8 @@ function defineModel() {
 }
 
 async function train() {
+  // Make sure the tfjs-vis visor is open before starting the training.
+  tfvis.visor().open();
   const BATCH_SIZE = 512;
   const TRAIN_DATA_SIZE = 5500;
   const TEST_DATA_SIZE = 1000;
